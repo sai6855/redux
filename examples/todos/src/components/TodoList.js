@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-use-before-define
 import React from 'react'
 import useDispatch from '../Hooks/useDispatch'
 import useSelector from '../Hooks/useSelector'
