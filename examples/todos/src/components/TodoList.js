@@ -5,7 +5,7 @@ import useSelector from '../Hooks/useSelector'
 import Todo from './Todo'
 
 const TodoList = () => {
-  const todos = useSelector(['todos'])
+  const todos = useSelector(['home', 'todos'])
 
   const dispatch = useDispatch()
 

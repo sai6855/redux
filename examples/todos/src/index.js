@@ -4,7 +4,14 @@ import App from './components/App'
 import Provider from './Hooks/Provider'
 
 render(
-  <Provider store={{ todos: [] }}>
+  <Provider
+    store={{
+      home: {
+        todos: [],
+        tests: []
+      }
+    }}
+  >
     <App />
   </Provider>,
   document.getElementById('root')
