@@ -13,15 +13,16 @@ const Provider = ({ store = {}, children }) => {
         [...paths].reduce((acc, path) => acc[path], prevState)
       )
 
-      const obj = { ...prevState }
-
-      paths.reduce((acc, path) => {
-        if (path === paths[paths.length - 1]) {
-          acc[path] = newState
-        }
-        return acc[path]
-      }, obj)
-
+      let obj = {}
+      if (paths.length > 0) {
+        obj = { ...prevState }
+        paths.reduce((acc, path) => {
+          if (path === paths[paths.length - 1]) {
+            acc[path] = newState
+          }
+          return acc[path]
+        }, obj)
+      }
       return paths.length > 0 ? obj : newState
     })
   }
