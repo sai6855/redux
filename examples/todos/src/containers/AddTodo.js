@@ -2,14 +2,14 @@
 import React from 'react'
 import { useState } from 'react'
 import TodoList from '../components/TodoList'
-import useDispatch from '../Hooks/useDispatch'
+import useUpdatePathState from '../Hooks/useUpdatePathState'
 import useSelector from '../Hooks/useSelector'
 
 const AddTodo = () => {
   let [input, setInput] = useState('')
   let [test, setTest] = useState('')
 
-  const dispatch = useDispatch()
+  const dispatchPath = useUpdatePathState()
 
   const todos = useSelector(['app', 'home', 'todos'])
 
@@ -21,14 +21,14 @@ const AddTodo = () => {
             e.preventDefault()
 
             if (input) {
-              dispatch(() => async asyncDispatch => {
+              dispatchPath(() => async asyncDispatchPath => {
                 const response = await fetch(
                   `https://jsonplaceholder.typicode.com/todos/${
                     todos.length + 1
                   }`
                 )
                 const data = await response.json()
-                asyncDispatch(
+                asyncDispatchPath(
                   (prevStore, prevState) => {
                     return [
                       ...prevState,
@@ -44,7 +44,7 @@ const AddTodo = () => {
               })
             }
             if (test) {
-              dispatch(
+              dispatchPath(
                 (prevStore, prevState) => [
                   ...prevState,
                   {

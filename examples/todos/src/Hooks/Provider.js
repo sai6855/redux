@@ -18,6 +18,22 @@ const Provider = ({ store = {}, children }) => {
         return prevState
       }
 
+      return newState
+    })
+  }
+
+  const updatePathState = (callback, paths = []) => {
+    change(prevState => {
+      const newState = callback(
+        prevState,
+        [...paths].reduce((acc, path) => acc[path], prevState)
+      )
+
+      if (typeof newState === 'function') {
+        newState(updatePathState)
+        return prevState
+      }
+
       let obj = {}
       if (paths.length > 0) {
         obj = { ...prevState }
@@ -35,7 +51,9 @@ const Provider = ({ store = {}, children }) => {
   console.log(state)
 
   return (
-    <Context.Provider value={{ state, setState }}>{children}</Context.Provider>
+    <Context.Provider value={{ state, setState, updatePathState }}>
+      {children}
+    </Context.Provider>
   )
 }
 

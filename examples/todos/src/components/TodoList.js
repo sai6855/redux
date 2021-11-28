@@ -14,9 +14,15 @@ const TodoList = () => {
   const toggleTodo = id => {
     dispatch(state => ({
       ...state,
-      todos: state.todos.map(todo =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
+      app: {
+        ...state.app,
+        home: {
+          ...state.app.home,
+          todos: state.app.home.todos.map(todo =>
+            todo.id === id ? { ...todo, completed: !todo.completed } : todo
+          )
+        }
+      }
     }))
   }
 
