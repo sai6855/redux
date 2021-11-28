@@ -17,26 +17,31 @@ const AddTodo = () => {
     <>
       <div>
         <form
-          onSubmit={async e => {
+          onSubmit={e => {
             e.preventDefault()
 
-            const response = await fetch(
-              `https://jsonplaceholder.typicode.com/todos/${todos.length + 1}`
-            )
-            const data = await response.json()
-
             if (input) {
-              dispatch(
-                (prevStore, prevState) => [
-                  ...prevState,
-                  {
-                    id: prevState.length,
-                    text: data.title,
-                    completed: false
-                  }
-                ],
-                ['app', 'home', 'todos']
-              )
+              dispatch(() => async asyncDispatch => {
+                const response = await fetch(
+                  `https://jsonplaceholder.typicode.com/todos/${
+                    todos.length + 1
+                  }`
+                )
+                const data = await response.json()
+                asyncDispatch(
+                  (prevStore, prevState) => {
+                    return [
+                      ...prevState,
+                      {
+                        id: prevState.length,
+                        text: data.title,
+                        completed: false
+                      }
+                    ]
+                  },
+                  ['app', 'home', 'todos']
+                )
+              })
             }
             if (test) {
               dispatch(

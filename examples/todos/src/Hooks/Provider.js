@@ -13,6 +13,11 @@ const Provider = ({ store = {}, children }) => {
         [...paths].reduce((acc, path) => acc[path], prevState)
       )
 
+      if (typeof newState === 'function') {
+        newState(setState)
+        return prevState
+      }
+
       let obj = {}
       if (paths.length > 0) {
         obj = { ...prevState }
