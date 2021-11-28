@@ -7,6 +7,7 @@ import Todo from './Todo'
 
 const TodoList = () => {
   const todos = useSelector(['app', 'home', 'todos'])
+  const tests = useSelector(['app', 'home', 'tests'])
 
   const dispatch = useDispatch()
 
@@ -20,11 +21,20 @@ const TodoList = () => {
   }
 
   return (
-    <ul>
-      {todos.map(todo => (
-        <Todo key={todo.id} {...todo} onClick={() => toggleTodo(todo.id)} />
-      ))}
-    </ul>
+    <>
+      <ul>
+        todos
+        {todos.map(todo => (
+          <Todo key={todo.id} {...todo} onClick={() => toggleTodo(todo.id)} />
+        ))}
+      </ul>
+      <ul>
+        tests
+        {tests.map(todo => (
+          <Todo key={todo.id} {...todo} onClick={() => toggleTodo(todo.id)} />
+        ))}
+      </ul>
+    </>
   )
 }
 

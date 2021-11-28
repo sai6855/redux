@@ -3,6 +3,7 @@ import React from 'react'
 import { useState } from 'react'
 import TodoList from '../components/TodoList'
 import useDispatch from '../Hooks/useDispatch'
+import useSelector from '../Hooks/useSelector'
 
 const AddTodo = () => {
   let [input, setInput] = useState('')
@@ -10,19 +11,27 @@ const AddTodo = () => {
 
   const dispatch = useDispatch()
 
+  const todos = useSelector(['app', 'home', 'todos'])
+
   return (
     <>
       <div>
         <form
-          onSubmit={e => {
+          onSubmit={async e => {
             e.preventDefault()
+
+            const response = await fetch(
+              `https://jsonplaceholder.typicode.com/todos/${todos.length + 1}`
+            )
+            const data = await response.json()
+
             if (input) {
               dispatch(
                 (prevStore, prevState) => [
                   ...prevState,
                   {
                     id: prevState.length,
-                    text: input,
+                    text: data.title,
                     completed: false
                   }
                 ],
