@@ -26,7 +26,7 @@ const AddTodo = () => {
                     completed: false
                   }
                 ],
-                ['home', 'todos']
+                ['app', 'home', 'todos']
               )
             }
             if (test) {
@@ -39,7 +39,7 @@ const AddTodo = () => {
                     completed: false
                   }
                 ],
-                ['home', 'tests']
+                ['app', 'home', 'tests']
               )
             }
             setInput('')

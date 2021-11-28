@@ -2,6 +2,22 @@
 import React, { useState } from 'react'
 
 export const Context = React.createContext()
+class ListNode {
+  constructor(data) {
+    this.data = data
+    this.next = null
+  }
+}
+
+// class LinkedList {
+//   constructor(head = null) {
+//     this.head = head
+//   }
+// }
+
+// let node1 = new ListNode(2)
+// let node2 = new ListNode(5)
+// node1.next = node2
 
 const Provider = ({ store = {}, children }) => {
   const [state, change] = useState(store)
@@ -26,6 +42,35 @@ const Provider = ({ store = {}, children }) => {
           }
         }, pathState)
       }
+
+    //   let obj = { ...prevState }
+
+    //   const nodes = []
+
+    //   paths.forEach(path => {
+    //     const statePath = obj[path]
+
+    //     const node = new ListNode({ ...obj, ...statePath })
+    //     nodes.push(node)
+    //     obj = { ...statePath }
+    //   })
+
+    //   console.log(nodes)
+
+      //   let obj = { ...prevState }
+
+      //   console.log(
+
+      //     const val = (path,state) => {
+      //         if(path === paths[paths.length - 1]){
+      //             return {...state,[path]:newState}
+      //         }else return {...state,[path]:val()}
+      //     }
+
+      //     paths.forEach(path => {
+      //       obj = { ...obj, [path]: obj[path] }
+      //     })
+      //   )
 
       // const paths = ['key1', 'key2', 'key3']
 

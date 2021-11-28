@@ -7,9 +7,11 @@ import Provider from './Hooks/Provider'
 render(
   <Provider
     store={{
-      home: {
-        todos: [],
-        tests: []
+      app: {
+        home: {
+          todos: [],
+          tests: []
+        }
       }
     }}
   >
