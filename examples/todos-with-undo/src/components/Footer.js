@@ -1,22 +1,36 @@
 import React from 'react'
-import FilterLink from '../containers/FilterLink'
+import useSelector from '../Hooks/useSelector'
+import useUpdatePathState from '../Hooks/useUpdatePathState'
+import Link from './Link'
 
-const Footer = () => (
-  <p>
-    Show:
-    {" "}
-    <FilterLink filter="SHOW_ALL">
-      All
-    </FilterLink>
-    {", "}
-    <FilterLink filter="SHOW_ACTIVE">
-      Active
-    </FilterLink>
-    {", "}
-    <FilterLink filter="SHOW_COMPLETED">
-      Completed
-    </FilterLink>
-  </p>
-)
+const Footer = () => {
+  const type = useSelector(['type'])
+
+  const dispatch = useUpdatePathState()
+
+  const filterTodos = userType => {
+    dispatch(() => userType, ['type'])
+  }
+
+  return (
+    <p>
+      Show:{' '}
+      <Link onClick={() => filterTodos('all')} active={type === 'all'}>
+        All
+      </Link>
+      {', '}
+      <Link onClick={() => filterTodos('active')} active={type === 'active'}>
+        Active
+      </Link>
+      {', '}
+      <Link
+        onClick={() => filterTodos('completed')}
+        active={type === 'completed'}
+      >
+        Completed
+      </Link>
+    </p>
+  )
+}
 
 export default Footer

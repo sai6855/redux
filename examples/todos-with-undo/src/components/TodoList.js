@@ -1,26 +1,42 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import Todo from './Todo'
+import useSelector from '../Hooks/useSelector'
+import useUpdatePathState from '../Hooks/useUpdatePathState'
 
-const TodoList = ({ todos, onTodoClick }) => (
-  <ul>
-    {todos.map(todo =>
-      <Todo
-        key={todo.id}
-        {...todo}
-        onClick={() => onTodoClick(todo.id)}
-      />
-    )}
-  </ul>
-)
+const TodoList = () => {
+  const todos = useSelector(['todos'])
+  const type = useSelector(['type'])
+  const dispatch = useUpdatePathState()
 
-TodoList.propTypes = {
-  todos: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    completed: PropTypes.bool.isRequired,
-    text: PropTypes.string.isRequired
-  }).isRequired).isRequired,
-  onTodoClick: PropTypes.func.isRequired
+  return (
+    <ul>
+      {todos
+        .filter(todo =>
+          type === 'all'
+            ? true
+            : type === 'completed'
+            ? todo.completed
+            : !todo.completed
+        )
+        .map(stodo => (
+          <Todo
+            key={stodo.id}
+            {...stodo}
+            onClick={() => {
+              dispatch(
+                () =>
+                  todos.map(todo =>
+                    todo.id === stodo.id
+                      ? { ...todo, completed: !todo.completed }
+                      : todo
+                  ),
+                ['todos']
+              )
+            }}
+          />
+        ))}
+    </ul>
+  )
 }
 
 export default TodoList
